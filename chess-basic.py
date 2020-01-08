@@ -46,22 +46,3 @@ knight_movement = lambda initialPos : [x for x in board if x in (set(square_move
 # the pawn movement includes attacks; only in the correspondent row at game start you can move more than 1  square. 
 positive_pawn_movement = lambda initialPos:   [x for x in board if  x[0] in [initialPos[0] + y for y in range(-1,2)] and x[1] == initialPos[1] + 1 and x != initialPos ] + [x for x in board if initialPos[1] == 2 and x[1] == 4 and x[0] == initialPos[0]  and x != initialPos] 
 negative_pawn_movement = lambda initialPos: [x for x in board if  x[0] in [initialPos[0] - y for y in range(-1,2)] and x[1] == initialPos[1] - 1  and x != initialPos ] + [x for x in board if initialPos[1] == edgeLong-1 and x[1] == 5 and x[0] == initialPos[0] and x != initialPos ]
-
-
-def test(test_position):
-  if validatePos(test_position):
-    for e in sorted(knight_movement(decodedPosition(test_position))):
-      print(encodePosition(e))
-    #for e in queen_movement(decodedPosition(test_position)):
-     # print(encodePosition(e))
-
-    
-print(knight_movement((4,5)))
-
-#test("e5")
-
-#print("---------------\n"*2)
-#test("c7")
-
-#pieces = ["Tower","Queen","King","Pawn","Bishop","knight"]
-# intial pos is something like: "a3"
