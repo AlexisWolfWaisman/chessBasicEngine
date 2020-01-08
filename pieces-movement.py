@@ -34,6 +34,8 @@ knight_movement = lambda initialPos : [x for x in board if x in (set(square_move
 # the pawn movement includes attacks; only in the correspondent row at game start you can move more than 1  square. 
 positive_pawn_movement = lambda initialPos:   [x for x in board if  x[0] in [initialPos[0] + y for y in range(-1,2)] and x[1] == initialPos[1] + 1 and x != initialPos ] + [x for x in board if initialPos[1] == 2 and x[1] == 4 and x[0] == initialPos[0]  and x != initialPos] 
 negative_pawn_movement = lambda initialPos: [x for x in board if  x[0] in [initialPos[0] - y for y in range(-1,2)] and x[1] == initialPos[1] - 1  and x != initialPos ] + [x for x in board if initialPos[1] == edgeLong-1 and x[1] == 5 and x[0] == initialPos[0] and x != initialPos ]
+# the king is easy , just an asterisk of 1 square distance.
+king_movement = lambda initialPos: asterisk_movement(initialPos,1)
 
 def regTest(pos):
   def label(piece):
@@ -68,6 +70,9 @@ def regTest(pos):
   for e in positive_pawn_movement(decodedPosition(pos)):
     print(encodePosition(e))
 
+  label("king")
+  for e in king_movement(decodedPosition(pos)):
+    print(encodePosition(e))
 
 
 regTest("e2")
