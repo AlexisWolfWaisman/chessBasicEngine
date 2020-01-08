@@ -1,9 +1,11 @@
 from numpy import prod as multiplicatoria
 from numpy import sum as sumatoria 
+from scipy.spatial.distance import euclidean as computeDistance
 from itertools import product as prodCartesiano
 from itertools import permutations
 from string import ascii_lowercase as abecedario
 from math import fabs
+from math import floor
 
 edgeLong = 8
 board = list(prodCartesiano(range(1,edgeLong+1),range(1,edgeLong+1)))
@@ -31,27 +33,32 @@ def validatePos(position):
 decodedPosition = lambda  position : (X_axis.index(position[0])+1 , int(position[1]) )
 encodePosition = lambda  position : (X_axis[position[0]-1] , int(position[1]) )
 # in all cases we keep in mind that the inital position is not included inside movement posibilities
-tower_movement = lambda initialPos : [ x for x in [x for x in board if x[0]==initialPos[0] or x[1] == initialPos[1]  ] if x != initialPos ]
+rook_movement = lambda initialPos : [ x for x in [x for x in board if x[0]==initialPos[0] or x[1] == initialPos[1]  ] if x != initialPos ]
 bishop_movement = lambda initialPos : [ x for x in [x for x in board if fabs(initialPos[0] - x[0] ) == fabs(initialPos[1] - x[1]) ] if x != initialPos ]
+# queen is the fusion between rook and bishop
+queen_movement = lambda initialPos : rook_movement(initialPos) + bishop_movement(initialPos) 
+# theese function provides the structure to solve another movements as knigth or king; even, it is posible to use in a "new" piece.
+asterisk_movement = lambda initialPos,distance : [x for x in queen_movement(initialPos) if floor(computeDistance(x,initialPos)) <= int(distance) ]
+square_movement = lambda initialPos,distance: [ x for x in prodCartesiano(range(initialPos[0]-distance,initialPos[0]+distance+1),range(initialPos[1]-distance,initialPos[1]+distance+1)) if x!= initialPos ]
+# The knigth (easy way to understand) is the opposite movement to queen in a small board (3x3) ; you can perform a knigth movement, just setting it in the squares where the queen can't reach.
+# in our context, simply: substract to the square th asterisk.
+knight_movement = lambda initialPos : [x for x in board if x in (set(square_movement(initialPos,2)) - set(asterisk_movement(initialPos,2)))  ]
 # the pawn movement includes attacks; only in the correspondent row at game start you can move more than 1  square. 
-positive_pawn_movement = lambda initialPos: [x for x in board if  x[0] in [initialPos[0] + y for y in range(-1,2)] and x[1] == initialPos[1] + 1  ] + [x for x in board if initialPos[1] == 2 and x[1] == 4 and x[0] == initialPos[0] ]
-negative_pawn_movement = lambda initialPos: [x for x in board if  x[0] in [initialPos[0] - y for y in range(-1,2)] and x[1] == initialPos[1] - 1  ] + [x for x in board if initialPos[1] == edgeLong-1 and x[1] == 5 and x[0] == initialPos[0] ]
-# Knight explained: if you add 2 to a coordinate and 1 to the rest, you have the elements of a permutation (all the possibilities between these sums) in which the only ones available are all those whose absolute value of the subtraction of them is 1 or 3.
-# by example: knight at d4, can move to e6 or c6... e=5  so abs(5-6) == 1 and c=3 so abs(3-6) = 3. Every absolute value in the substraction between the coordinates from the available position  ... must be in the set formed by 1 and 3.
-horse_movement =lambda initialPos : [x for x in board if x in [x for x in list(permutations([sumatoria(x) for x in prodCartesiano(set(initialPos),(-1,1,2,-2))],2)) if fabs(x[0] - x[1]) in (1,3) ] ]
- 
+positive_pawn_movement = lambda initialPos:   [x for x in board if  x[0] in [initialPos[0] + y for y in range(-1,2)] and x[1] == initialPos[1] + 1 and x != initialPos ] + [x for x in board if initialPos[1] == 2 and x[1] == 4 and x[0] == initialPos[0]  and x != initialPos] 
+negative_pawn_movement = lambda initialPos: [x for x in board if  x[0] in [initialPos[0] - y for y in range(-1,2)] and x[1] == initialPos[1] - 1  and x != initialPos ] + [x for x in board if initialPos[1] == edgeLong-1 and x[1] == 5 and x[0] == initialPos[0] and x != initialPos ]
 
 
 def test(test_position):
-  if validatePos(test_position):          
-    for e in bishop_movement(decodedPosition(test_position)):
+  if validatePos(test_position):
+    for e in sorted(knight_movement(decodedPosition(test_position))):
       print(encodePosition(e))
+    #for e in queen_movement(decodedPosition(test_position)):
+     # print(encodePosition(e))
 
-   
+    
+print(knight_movement((4,5)))
 
-
-
-test("d7")
+#test("e5")
 
 #print("---------------\n"*2)
 #test("c7")
