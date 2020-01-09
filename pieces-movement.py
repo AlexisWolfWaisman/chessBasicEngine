@@ -16,18 +16,17 @@ def validatePos(position):
     elif int(position[1]) not in Y_axis:
       raise NameError("the second character ( %s ) doesn't belong  to the Y-axis"%position[1])
     return True
-
+# theese functions provides the structure to solve another movements.
+asterisk_movement = lambda initialPos,distance : [x for x in queen_movement(initialPos) if floor(computeDistance(x,initialPos)) <= int(distance) ]
+square_movement = lambda initialPos,distance: [ x for x in prodCartesiano(range(initialPos[0]-distance,initialPos[0]+distance+1),range(initialPos[1]-distance,initialPos[1]+distance+1)) if x!= initialPos ]
 decodedPosition = lambda  position : (X_axis.index(position[0])+1 , int(position[1]) )
 encodePosition = lambda  position : (X_axis[position[0]-1] , int(position[1]) )
-checkBoardConsistent = lambda position: [x for x in board if x != position]
+#checkBoardConsistent = lambda position: [x for x in board if x != position]
 # in all cases we keep in mind that the inital position is not included inside movement posibilities
 rook_movement = lambda initialPos : [ x for x in [x for x in board if x[0]==initialPos[0] or x[1] == initialPos[1]  ] if x != initialPos ]
 bishop_movement = lambda initialPos : [ x for x in [x for x in board if fabs(initialPos[0] - x[0] ) == fabs(initialPos[1] - x[1]) ] if x != initialPos ]
 # queen is the fusion between rook and bishop
 queen_movement = lambda initialPos : rook_movement(initialPos) + bishop_movement(initialPos) 
-# theese function provides the structure to solve another movements as knigth or king; even, it is posible to use in a "new" piece.
-asterisk_movement = lambda initialPos,distance : [x for x in queen_movement(initialPos) if floor(computeDistance(x,initialPos)) <= int(distance) ]
-square_movement = lambda initialPos,distance: [ x for x in prodCartesiano(range(initialPos[0]-distance,initialPos[0]+distance+1),range(initialPos[1]-distance,initialPos[1]+distance+1)) if x!= initialPos ]
 # The knigth (easy way to understand) is the opposite movement to queen in a small board (3x3) ; you can perform a knigth movement, just setting it in the squares where the queen can't reach.
 # in our context, simply: substract to the square th asterisk.
 knight_movement = lambda initialPos : [x for x in board if x in (set(square_movement(initialPos,2)) - set(asterisk_movement(initialPos,2)))  ]
