@@ -1,3 +1,4 @@
+from numpy import array as NParray, unique,sign
 from scipy.spatial.distance import euclidean as computeDistance
 from itertools import product as prodCartesiano
 from math import fabs, floor
@@ -20,7 +21,8 @@ def validatePos(position):
 asterisk_movement = lambda initialPos,distance : [x for x in queen_movement(initialPos) if floor(computeDistance(x,initialPos)) <= int(distance) ]
 square_movement = lambda initialPos,distance: [ x for x in prodCartesiano(range(initialPos[0]-distance,initialPos[0]+distance+1),range(initialPos[1]-distance,initialPos[1]+distance+1)) if x!= initialPos ]
 spider_movement = lambda initialPos,distance: [x for x in set(square_movement(initialPos,distance)).intersection(set(asterisk_movement(initialPos,distance)))]
-diamond_movement = lambda initialPos: [x for x in spider_movement(initialPos,2)]
+close_diamond_movement = lambda initialPos:  set(spider_movement(initialPos,2)) - set(map(tuple,NParray(initialPos) + list(prodCartesiano((2,-2),repeat=2))))
+triangle_movement = lambda initialPos,direction: [x for x in close_diamond_movement(initialPos) if sign(x[1]-initialPos[1])==sign(direction) ]
 decodedPosition = lambda  position : (X_axis.index(position[0])+1 , int(position[1]) )
 encodePosition = lambda  position : (X_axis[position[0]-1] , int(position[1]) )
 checkBoardConsistent = lambda position: [x for x in board if x != position]
@@ -203,12 +205,12 @@ def regTest(pos):
 
 def newFuncTest(pos):
     inip = decodedPosition(pos)
-    finResult = sorted(diamond_movement(inip))
-    for e in finResult:
-        print(encodePosition(e))
+    print(triangle_movement(inip,1))
+    # finResult = sorted(diamond_movement(inip))
+    # for e in finResult:
+    #     print(encodePosition(e))
     # [('f', 4), ('c', 1), ('d', 4), ('f', 0), ('c', 3), ('d', 0), ('g', 1), ('g', 0), ('e', 0), ('c', 0), ('g', 3)]
 
-    print(finResult)
 
 
 
