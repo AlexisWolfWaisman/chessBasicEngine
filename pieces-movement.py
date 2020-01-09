@@ -24,7 +24,7 @@ encodePosition = lambda  position : (X_axis[position[0]-1] , int(position[1]) )
 checkBoardConsistent = lambda position: [x for x in board if x != position]
 # in all cases we keep in mind that the inital position is not included inside movement posibilities
 rook_movement = lambda initialPos : list(set(checkBoardConsistent(initialPos)).intersection(set([x for x in board if x[0]==initialPos[0] or x[1] == initialPos[1] ] )))
-bishop_movement = lambda initialPos : [ x for x in [x for x in board if fabs(initialPos[0] - x[0] ) == fabs(initialPos[1] - x[1]) ] if x != initialPos ]
+bishop_movement = lambda initialPos :  list(set(checkBoardConsistent(initialPos)).intersection(set([x for x in board if fabs(initialPos[0] - x[0] ) == fabs(initialPos[1] - x[1]) ])))
 # queen is the fusion between rook and bishop
 queen_movement = lambda initialPos : rook_movement(initialPos) + bishop_movement(initialPos) 
 # The knigth (easy way to understand) is the opposite movement to queen in a small board (3x3) ; you can perform a knigth movement, just setting it in the squares where the queen can't reach.
@@ -147,7 +147,7 @@ def regTest(pos):
 
 
 
-    label("up to down pawn movement")
+    label("up to down pawn ")
     negPawnproof = [
         ('d', 1),
         ('e', 1),
@@ -163,7 +163,7 @@ def regTest(pos):
         raise NameError("the negative pawn movement is strange!")
 
 
-    label("down to up pawn movement")
+    label("down to up pawn ")
     posPawnproof = [
         ('d', 3),
         ('e', 3),
