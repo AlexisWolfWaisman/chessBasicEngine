@@ -21,9 +21,9 @@ asterisk_movement = lambda initialPos,distance : [x for x in queen_movement(init
 square_movement = lambda initialPos,distance: [ x for x in prodCartesiano(range(initialPos[0]-distance,initialPos[0]+distance+1),range(initialPos[1]-distance,initialPos[1]+distance+1)) if x!= initialPos ]
 decodedPosition = lambda  position : (X_axis.index(position[0])+1 , int(position[1]) )
 encodePosition = lambda  position : (X_axis[position[0]-1] , int(position[1]) )
-#checkBoardConsistent = lambda position: [x for x in board if x != position]
+checkBoardConsistent = lambda position: [x for x in board if x != position]
 # in all cases we keep in mind that the inital position is not included inside movement posibilities
-rook_movement = lambda initialPos : [ x for x in [x for x in board if x[0]==initialPos[0] or x[1] == initialPos[1]  ] if x != initialPos ]
+rook_movement = lambda initialPos : list(set(checkBoardConsistent(initialPos)).intersection(set([x for x in board if x[0]==initialPos[0] or x[1] == initialPos[1] ] )))
 bishop_movement = lambda initialPos : [ x for x in [x for x in board if fabs(initialPos[0] - x[0] ) == fabs(initialPos[1] - x[1]) ] if x != initialPos ]
 # queen is the fusion between rook and bishop
 queen_movement = lambda initialPos : rook_movement(initialPos) + bishop_movement(initialPos) 
@@ -37,42 +37,166 @@ negative_pawn_movement = lambda initialPos: [x for x in board if  x[0] in [initi
 king_movement = lambda initialPos: asterisk_movement(initialPos,1)
 
 def regTest(pos):
-  def label(piece):
+    def label(piece):
         print("\n" * 2) 
         print("|"+"-"*40+"|")
         print("  %s movement"%piece)
         print("|"+"-"*40+"|")
         print("\n" * 2)
-        
-  label("rook")
-  for e in rook_movement(decodedPosition(pos)):
-    print(encodePosition(e))
-  label("bishop")
-  for e in bishop_movement(decodedPosition(pos)):
-    print(encodePosition(e))
 
-  label("queen") 
-  for e in queen_movement(decodedPosition(pos)):
-    print(encodePosition(e))
+    label("rook")
+    rookproof = [
+        # just with b2
+        ('a', 2),
+        ('b', 2),
+        ('c', 2),
+        ('d', 2),
+        ('e', 1),
+        ('e', 3),
+        ('e', 4),
+        ('e', 5),
+        ('e', 6),
+        ('e', 7),
+        ('e', 8),
+        ('f', 2),
+        ('g', 2),
+        ('h', 2)
+    ]
+    rook_result = [encodePosition(e) for e in sorted(rook_movement(decodedPosition(pos)))]
+    for e in rook_result:
+        print(e)
+    if (rookproof == rook_result):
+        print("\neverything is ok!" )
+    else:
+        raise NameError("the rook is strange!")
 
 
-  label("knight")
-  for e in knight_movement(decodedPosition(pos)):
-    print(encodePosition(e))
 
-  
-  label("up to down pawn movement")  
-  for e in negative_pawn_movement(decodedPosition(pos)):
-    print(encodePosition(e))
+    label("bishop")  
+    bishopProof = [
+      # just with b2
+      ('a', 6),
+      ('b', 5),
+      ('c', 4),
+      ('d', 1),
+      ('d', 3),
+      ('f', 1),
+      ('f', 3),
+      ('g', 4),
+      ('h', 5)
+        ]
+    bishop_result = [encodePosition(e) for e in sorted(bishop_movement(decodedPosition(pos)))]
+    for e in bishop_result:
+        print(e)
+    if (bishopProof == bishop_result):
+        print("\neverything is ok!")
+    else:
+        raise NameError("the bishop is strange!")
 
-  label("down to up pawn movement")  
-  for e in positive_pawn_movement(decodedPosition(pos)):
-    print(encodePosition(e))
 
-  label("king")
-  for e in king_movement(decodedPosition(pos)):
-    print(encodePosition(e))
+    label("queen")
+    queenproof = [
+        ('a', 2),
+        ('a', 6),
+        ('b', 2),
+        ('b', 5),
+        ('c', 2),
+        ('c', 4),
+        ('d', 1),
+        ('d', 2),
+        ('d', 3),
+        ('e', 1),
+        ('e', 3),
+        ('e', 4),
+        ('e', 5),
+        ('e', 6),
+        ('e', 7),
+        ('e', 8),
+        ('f', 1),
+        ('f', 2),
+        ('f', 3),
+        ('g', 2),
+        ('g', 4),
+        ('h', 2),
+        ('h', 5)
+    ]
+    queen_result = [encodePosition(e) for e in sorted(queen_movement(decodedPosition(pos)))]
+    for e in queen_result:
+        print(e)
+    if (queenproof == queen_result):
+        print("\neverything is ok!")
+    else:
+        raise NameError("the queen is strange!")
 
+    label("knight")
+    knightproof = [
+        ('c', 1),
+        ('c', 3),
+        ('d', 4),
+        ('f', 4),
+        ('g', 1),
+        ('g', 3)
+    ]
+    knight_result = [encodePosition(e) for e in sorted(knight_movement(decodedPosition(pos)))]
+    for e in knight_result:
+        print(e)
+    if (knightproof == knight_result):
+        print("\neverything is ok!")
+    else:
+        raise NameError("the knight is strange!")
+
+
+
+    label("up to down pawn movement")
+    negPawnproof = [
+        ('c', 1),
+        ('c', 3),
+        ('d', 4),
+        ('f', 4),
+        ('g', 1),
+        ('g', 3)
+    ]
+    negPawn_result = [encodePosition(e) for e in sorted(negative_pawn_movement(decodedPosition(pos)))]
+    for e in negPawn_result:
+        print(e)
+    if (negPawnproof == negPawn_result):
+        print("\neverything is ok!")
+    else:
+        raise NameError("the negative pawn movement is strange!")
+
+    label("down to up pawn movement")
+    posPawnproof = [
+        ('d', 3),
+        ('e', 3),
+        ('e', 4),
+        ('f', 3)
+    ]
+    posPawn_result = [encodePosition(e) for e in sorted(positive_pawn_movement(decodedPosition(pos)))]
+    for e in posPawn_result:
+        print(e)
+    if (posPawnproof == posPawn_result):
+        print("\neverything is ok!")
+    else:
+        raise NameError("the positive pawn movement is strange!")
+
+    label("king")
+    kingproof = [
+        ('d', 1),
+        ('d', 2),
+        ('d', 3),
+        ('e', 1),
+        ('e', 3),
+        ('f', 1),
+        ('f', 2),
+        ('f', 3)
+    ]
+    king_result = [encodePosition(e) for e in sorted(king_movement(decodedPosition(pos)))]
+    for e in king_result:
+        print(e)
+    if (knightproof == knight_result):
+        print("\neverything is ok!")
+    else:
+        raise NameError("the king is strange!")
 
 regTest("e2")
 
