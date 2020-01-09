@@ -16,7 +16,7 @@ def basicBoard(table):
 
 
 
-basicBoard(mark(triangle_movement((3,3),-1)))
+basicBoard(mark(queen_movement((3,3))))
 
 
 
