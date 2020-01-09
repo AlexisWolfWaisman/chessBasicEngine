@@ -149,20 +149,19 @@ def regTest(pos):
 
     label("up to down pawn movement")
     negPawnproof = [
-        ('c', 1),
-        ('c', 3),
-        ('d', 4),
-        ('f', 4),
-        ('g', 1),
-        ('g', 3)
+        ('d', 1),
+        ('e', 1),
+        ('f', 1)
     ]
     negPawn_result = [encodePosition(e) for e in sorted(negative_pawn_movement(decodedPosition(pos)))]
     for e in negPawn_result:
         print(e)
+
     if (negPawnproof == negPawn_result):
         print("\neverything is ok!")
     else:
         raise NameError("the negative pawn movement is strange!")
+
 
     label("down to up pawn movement")
     posPawnproof = [
