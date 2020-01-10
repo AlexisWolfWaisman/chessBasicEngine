@@ -1,9 +1,12 @@
 from src.statusCodes import codes as sCodes
-from src.generalMovements import encodePosition,decodedPosition
+from src.generalMovements import *
+from src.rules import *
 class piece(object):
-    def __init__(self):
+    def __init__(self,p_team):
         position : None
         movement: None
+        team: p_team
+
     # position will be as tuple : (3,2)
     def setPosition(self,p_position):
         self.position = decodedPosition(p_position)
@@ -15,23 +18,69 @@ class piece(object):
     def getMovement(self):
         return self.movement
 
-    def checkRules(self,position):
-        return True
 
     def makeMove(self,futurePosition):
         pos = decodedPosition(futurePosition)
         if  pos in self.movement(self.position):
-            if self.checkRules(decodedPosition(futurePosition)):
-                self.setPosition(futurePosition)
-            else:
-                answer = 2
-                return answer
-                #raise NameError(sCodes[answer])
+            self.setPosition(futurePosition)
         else:
-            print(self.movement(self.position))
             answer = 1
             raise NameError(sCodes[answer])
 
+class queen(piece):
+    def __init__(self,p_team):
+        super().__init__(p_team)
+        self.movement = queen_movement
+
+class knight(piece):
+    def __init__(self,p_team):
+        super().__init__(p_team)
+        self.movement = knight_movement
+
+class rook(piece):
+    def __init__(self, p_team):
+        super().__init__(p_team)
+        self.movement = rook_movement
+
+class bishop(piece):
+    def __init__(self, p_team):
+        super().__init__(p_team)
+        self.movement = bishop_movement
 
 class king(piece):
-    pass
+    def __init__(self, p_team):
+        super().__init__(p_team)
+        self.movement = king_movement
+
+    #TODO: castling
+    def castling(self,side):
+        # side: king-side or queen-side
+        pass
+
+
+class pawn(piece):
+    def __init__(self, p_team):
+        super().__init__(p_team)
+        # standard
+        self.standardStart(p_team)
+
+    def standardStart(self,p_team):
+        if p_team == "white":
+            self.movement = positive_pawn_movement
+        if p_team == "black":
+            self.movement = negative_pawn_movement
+
+    # TODO: The complete pawn movement.
+    def makeMove(self,futurePosition,match):
+        pass
+        """Certainly, a complex movement """
+
+    # TODO: enpassant
+    def enpassant(self):
+        pass
+
+    # TODO: Crowning (pawn becomes another piece)
+    def crowning(self):
+        pass
+
+

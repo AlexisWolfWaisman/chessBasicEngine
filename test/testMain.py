@@ -1,12 +1,11 @@
-from src.pieces import piece
+from src.pieces import *
 from src.generalMovements import queen_movement
 from src.generalMovements import decodedPosition
 from src.generalMovements import encodePosition
 if __name__ == '__main__':
-    justAqueen = piece()
-    justAqueen.setMovement(queen_movement)
-    justAqueen.setPosition("e2")
-    print(justAqueen.getPosition())
-    justAqueen.makeMove("e3")
-    print("\n"+"La actual es:\n")
-    print(justAqueen.getPosition())
+    targetPiece = pawn("white")
+    targetPiece.setPosition("b1")
+    print(targetPiece.getPosition())
+    print("la nueva posicion es:")
+    targetPiece.makeMove("c2")
+    print(targetPiece.getPosition())
