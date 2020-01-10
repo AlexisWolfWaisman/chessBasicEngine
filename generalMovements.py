@@ -1,6 +1,6 @@
 from numpy import array as NParray, unique,sign
 from scipy.spatial.distance import euclidean as computeDistance
-from itertools import product as prodCartesiano
+from itertools import product as cartessianProd
 from math import fabs, floor
 from board import *
 
@@ -19,9 +19,9 @@ def validatePos(position):
     return True
 # theese functions provides the structure to solve another movements.
 asterisk_movement = lambda initialPos,distance : [x for x in queen_movement(initialPos) if floor(computeDistance(x,initialPos)) <= int(distance) ]
-square_movement = lambda initialPos,distance: [ x for x in prodCartesiano(range(initialPos[0]-distance,initialPos[0]+distance+1),range(initialPos[1]-distance,initialPos[1]+distance+1)) if x!= initialPos ]
+square_movement = lambda initialPos,distance: [ x for x in cartessianProd(range(initialPos[0]-distance,initialPos[0]+distance+1),range(initialPos[1]-distance,initialPos[1]+distance+1)) if x!= initialPos ]
 spider_movement = lambda initialPos,distance: [x for x in set(square_movement(initialPos,distance)).intersection(set(asterisk_movement(initialPos,distance)))]
-spot_movement = lambda initialPos,distance:  set(spider_movement(initialPos,distance)) - set(map(tuple,NParray(initialPos) + list(prodCartesiano((2,-2),repeat=2))))
+spot_movement = lambda initialPos,distance:  set(spider_movement(initialPos,distance)) - set(map(tuple,NParray(initialPos) + list(cartessianProd((2,-2),repeat=2))))
 triangle_movement = lambda initialPos,distance,direction: [x for x in spot_movement(initialPos,distance) if sign(x[1]-initialPos[1])==sign(direction) ]
 decodedPosition = lambda  position : (X_axis.index(position[0])+1 , int(position[1]) )
 encodePosition = lambda  position : (X_axis[position[0]-1] , int(position[1]) )
@@ -35,7 +35,7 @@ queen_movement = lambda initialPos : rook_movement(initialPos) + bishop_movement
 # in our context, simply: substract to the square th asterisk.
 knight_movement = lambda initialPos : [x for x in board if x in (set(square_movement(initialPos,2)) - set(asterisk_movement(initialPos,2)))  ]
 # the pawn movement includes attacks; only in the correspondent row at game start you can move more than 1  square. 
-positive_pawn_movement = lambda initialPos: None
-negative_pawn_movement = lambda initialPos: [x for x in board if  x[0] in [initialPos[0] - y for y in range(-1,2)] and x[1] == initialPos[1] - 1  and x != initialPos ] + [x for x in board if initialPos[1] == edgeLong-1 and x[1] == 5 and x[0] == initialPos[0] and x != initialPos ]
+positive_pawn_movement = lambda initialPos: triangle_movement(initialPos,2,1) if initialPos[1] == Y_axis[1] else triangle_movement(initialPos,1,1)
+negative_pawn_movement = lambda initialPos: triangle_movement(initialPos,2,-1) if initialPos[1] == Y_axis[edgeLong-1] else triangle_movement(initialPos,1,-1)
 # the king is easy , just an asterisk of 1 square distance.
 king_movement = lambda initialPos: asterisk_movement(initialPos,1)

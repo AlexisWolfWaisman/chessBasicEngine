@@ -1,7 +1,13 @@
-from piecesMovement import *
+from generalMovements import *
 from tabulate import  tabulate
 from board import *
 
+UNICODE_PIECES = {
+  'r': u'♜', 'n': u'♞', 'b': u'♝', 'q': u'♛',
+  'k': u'♚', 'p': u'♟', 'R': u'♖', 'N': u'♘',
+  'B': u'♗', 'Q': u'♕', 'K': u'♔', 'P': u'♙',
+  None: ' '
+}
 
 def mark(positions):
     table = []
@@ -10,13 +16,15 @@ def mark(positions):
         table.append(row)
     return table
 
+def setPiecePos(piece,positions):
+    pass
 
 def basicBoard(table):
     print(tabulate(table,headers=X_axis,tablefmt="fancy_grid"))
 
 
 
-basicBoard(mark(queen_movement((3,3))))
+basicBoard(mark(negative_pawn_movement((3,2))))
 
 
 
