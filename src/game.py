@@ -1,5 +1,3 @@
-from board import board
-
 class game(object):
     def __init__(self):
         teams = None

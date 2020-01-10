@@ -1,6 +1,3 @@
-from generalMovements import positive_pawn_movement,negative_pawn_movement
-
-
 # team = white or black , in a simple standard game
 def pawnBehaviour(position,team):
     """

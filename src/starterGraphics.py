@@ -1,6 +1,6 @@
-from generalMovements import *
+from src.generalMovements import *
 from tabulate import  tabulate
-from board import *
+from src.board import *
 
 UNICODE_PIECES = {
   'r': u'♜', 'n': u'♞', 'b': u'♝', 'q': u'♛',
