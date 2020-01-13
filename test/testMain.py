@@ -7,5 +7,5 @@ if __name__ == '__main__':
     targetPiece.setPosition("b2")
     print(targetPiece.getPosition())
     print("la nueva posicion es:")
-    targetPiece.makeMove("b4",opossitePrescence = ("c3",))
+    targetPiece.makeMove("b4",opossitePrescence = ("c3","a3"))
     print(targetPiece.getPosition())

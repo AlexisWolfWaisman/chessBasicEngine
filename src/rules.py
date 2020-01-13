@@ -1,6 +1,15 @@
+from scipy.spatial.distance import euclidean as computeDistance
+#TODO: directAmenace
+def directAmenace(team1,team2):
+    # team1 and team2 are lists
+    for x in team1:
+        for y in team2:
+            pass
+
 #TODO: Check
-def check(piece,king):
+def check(king,alliesPresence = [], opossitePrescence = [] ):
     pass
+
 
 #TODO: castling
 def castling(side,team):
@@ -11,15 +20,12 @@ def castling(side,team):
     :return:
     """
     # White QueenSide --> WQS
-    posibilities = {"WQ":{"k":"d1","r":"c1"},
-                    "WK":{"k":"g1","r":"f1"},
-                    "BQ":{"k":"b1","r":"c1"}
-                    #TODO: WK
+    posibilities = {"WQ":{"King":"d1","Rook":"c1"},
+                    "WK":{"King":"g1","Rook":"f1"},
+                    "BQ":{"King":"b8","Rook":"c8"},
+                    "BK": {"King": "f8", "Rook": "e8"}
                     }
     return posibilities[team.upper()+side.upper()]
-
-
-
 
 # TODO: enpassant
 def enpassant(self):

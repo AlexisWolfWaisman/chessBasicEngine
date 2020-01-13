@@ -19,9 +19,9 @@ class piece(object):
         return self.movement
 
 
-    def makeMove(self,futurePosition,alliesPresence= []):
+    def makeMove(self,futurePosition):
         pos = decodedPosition(futurePosition)
-        posibMoves = [x for x in self.movement(self.position) if x not in alliesPresence]
+        posibMoves = [x for x in self.movement(self.position) ]
         if  pos in posibMoves:
             self.setPosition(futurePosition)
         else:
@@ -68,9 +68,9 @@ class pawn(piece):
         if p_team == "black":
             self.movement = negative_pawn_movement
 
-    def makeMove(self,futurePosition, alliesPresence = [], opossitePrescence = [] ):
+    def makeMove(self,futurePosition, opossitePrescence = [] ):
         pos = decodedPosition(futurePosition)
-        posibMoves = [ x for x in self.movement(self.position) if x[0] == self.position[0] and x not in alliesPresence]
+        posibMoves = [ x for x in self.movement(self.position) if x[0] == self.position[0] ]
         if opossitePrescence != []:
             prescence = [decodedPosition(x) for x in opossitePrescence]
             posibMoves = list(set(posibMoves).union(set(prescence)))
