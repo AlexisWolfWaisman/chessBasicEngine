@@ -1,6 +1,7 @@
 from src.generalMovements import *
 from tabulate import  tabulate
 from src.board import *
+from src.pieces import *
 
 UNICODE_PIECES = {
   'r': u'♜', 'n': u'♞', 'b': u'♝', 'q': u'♛',
@@ -23,9 +24,9 @@ def basicBoard(table):
     print(tabulate(table,headers=X_axis,tablefmt="fancy_grid"))
 
 
-
-basicBoard(mark(negative_pawn_movement((3,2))))
-
+prueba = pawn("white")
+prueba.setPosition("b2")
+basicBoard(mark())
 
 
 

@@ -4,8 +4,8 @@ from src.generalMovements import decodedPosition
 from src.generalMovements import encodePosition
 if __name__ == '__main__':
     targetPiece = pawn("white")
-    targetPiece.setPosition("b1")
+    targetPiece.setPosition("b2")
     print(targetPiece.getPosition())
     print("la nueva posicion es:")
-    targetPiece.makeMove("c2")
+    targetPiece.makeMove("b4",opossitePrescence = ("c3",))
     print(targetPiece.getPosition())

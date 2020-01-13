@@ -19,9 +19,10 @@ class piece(object):
         return self.movement
 
 
-    def makeMove(self,futurePosition):
+    def makeMove(self,futurePosition,alliesPresence= []):
         pos = decodedPosition(futurePosition)
-        if  pos in self.movement(self.position):
+        posibMoves = [x for x in self.movement(self.position) if x not in alliesPresence]
+        if  pos in posibMoves:
             self.setPosition(futurePosition)
         else:
             answer = 1
@@ -52,10 +53,7 @@ class king(piece):
         super().__init__(p_team)
         self.movement = king_movement
 
-    #TODO: castling
-    def castling(self,side):
-        # side: king-side or queen-side
-        pass
+
 
 
 class pawn(piece):
@@ -70,17 +68,18 @@ class pawn(piece):
         if p_team == "black":
             self.movement = negative_pawn_movement
 
-    # TODO: The complete pawn movement.
-    def makeMove(self,futurePosition,match):
-        pass
-        """Certainly, a complex movement """
+    def makeMove(self,futurePosition, alliesPresence = [], opossitePrescence = [] ):
+        pos = decodedPosition(futurePosition)
+        posibMoves = [ x for x in self.movement(self.position) if x[0] == self.position[0] and x not in alliesPresence]
+        if opossitePrescence != []:
+            prescence = [decodedPosition(x) for x in opossitePrescence]
+            posibMoves = list(set(posibMoves).union(set(prescence)))
+        if pos in posibMoves  :
+            self.setPosition(futurePosition)
+        else:
+            answer = 1
+            raise NameError(sCodes[answer])
 
-    # TODO: enpassant
-    def enpassant(self):
-        pass
 
-    # TODO: Crowning (pawn becomes another piece)
-    def crowning(self):
-        pass
 
 
