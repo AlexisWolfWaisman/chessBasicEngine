@@ -2,12 +2,22 @@ from src.statusCodes import codes as sCodes
 from src.generalMovements import *
 from src.rules import *
 class piece(object):
-    def __init__(self,p_team):
-        position : None
-        movement: None
-        team: p_team
+    team = None
+    position = None
+    movement = None
+    counterside = []
 
-    # position will be as tuple : (3,2)
+    def __init__(self,p_team):
+        self.setTeam(p_team)
+
+
+
+# ------------------- Setters and getters ----------------------------------------------------
+    def setTeam(self,p_team):
+        self.team = p_team
+    def getTeam(self):
+        return self.team
+
     def setPosition(self,p_position):
         self.position = decodedPosition(p_position)
     def getPosition(self):
@@ -18,7 +28,23 @@ class piece(object):
     def getMovement(self):
         return self.movement
 
+    def setCounterside(self,p_oposition):
+            self.counterside.append(p_oposition)
 
+    def getCounterside(self):
+        return self.counterside
+
+# ------------------- End ----------------------------------------------------
+
+    def reacheable_pieces(self,enviroment=[]):
+        reachEnem = [(x.getPosition(),computeDistance(x.position,self.position)) for x in enviroment if x.position in self.movement(self.position)  and x.team in self.getCounterside()  ]
+        # reachAllies = [(x.getPosition(),computeDistance(x.position,self.position)) for x in enviroment if x.position in self.movement(self.position) ]
+
+        return reachEnem
+
+
+
+        pass
     def makeMove(self,futurePosition):
         pos = decodedPosition(futurePosition)
         posibMoves = [x for x in self.movement(self.position) ]

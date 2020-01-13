@@ -3,9 +3,12 @@ from src.generalMovements import queen_movement
 from src.generalMovements import decodedPosition
 from src.generalMovements import encodePosition
 if __name__ == '__main__':
-    targetPiece = pawn("white")
-    targetPiece.setPosition("b2")
-    print(targetPiece.getPosition())
-    print("la nueva posicion es:")
-    targetPiece.makeMove("b4",opossitePrescence = ("c3","a3"))
-    print(targetPiece.getPosition())
+    Piece_A = rook("white")
+    Piece_A.setPosition("b2")
+    Piece_A.setCounterside("black")
+
+    Piece_B = pawn("black")
+    Piece_B.setPosition("c2")
+    Piece_B.setCounterside("white")
+
+    print(Piece_A.reacheable_pieces([Piece_B]))
