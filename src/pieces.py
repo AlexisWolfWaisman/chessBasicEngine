@@ -1,14 +1,23 @@
 from src.statusCodes import codes as sCodes
 from src.generalMovements import *
-from src.rules import *
+from numpy import angle
+from math import atan2,pi
+# angleBetweenPoints = lambda origin,destiny: angle(complex(destiny[0]-origin[0],destiny[1]-origin[1]),deg=True)
+angleBetweenPoints = lambda origin,destiny: int(atan2(destiny[1] - origin[1], destiny[0] - origin[0]) * 180 / pi)
 class piece(object):
     team = None
     position = None
     movement = None
     counterside = []
+    sameSide = []
 
     def __init__(self,p_team):
         self.setTeam(p_team)
+
+    def __str__(self):
+        return "%s %s"%(self.team , type(self).__name__)
+
+
 
 
 
@@ -30,21 +39,25 @@ class piece(object):
 
     def setCounterside(self,p_oposition):
             self.counterside.append(p_oposition)
-
     def getCounterside(self):
         return self.counterside
+
+    def setSameSide(self,p_sameSide):
+        self.sameSide = p_sameSide
+    def getSameSide(self):
+        return self.sameSide
 
 # ------------------- End ----------------------------------------------------
 
     def reacheable_pieces(self,enviroment=[]):
-        reachEnem = [(x.getPosition(),computeDistance(x.position,self.position)) for x in enviroment if x.position in self.movement(self.position)  and x.team in self.getCounterside()  ]
-        # reachAllies = [(x.getPosition(),computeDistance(x.position,self.position)) for x in enviroment if x.position in self.movement(self.position) ]
+        #TODO: it must compare distance between allies and enemies ; the longest one is unreacheable (in same angle)
 
-        return reachEnem
+        compass = dict(zip(range(0,360,45),[[]]*8))
+        for elem in enviroment:
+            keyIndex = angleBetweenPoints(self.position,elem.position)
+            compass[keyIndex] = (elem.getPosition(),computeDistance(self.position,elem.position),elem.getTeam())
+        return compass
 
-
-
-        pass
     def makeMove(self,futurePosition):
         pos = decodedPosition(futurePosition)
         posibMoves = [x for x in self.movement(self.position) ]
