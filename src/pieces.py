@@ -53,13 +53,15 @@ class piece(object):
         compass = dict(zip(range(0,360,45),[[]]*8))
         for elem in enviroment:
             keyIndex = angleBetweenPoints(self.position,elem.position)
-            # # nearby elements are "reachable" , just them.
-            # currentDistance = computeDistance(self.position,elem.position)
-            # if compass[keyIndex] != []:
-
-            compass[keyIndex] = compass[keyIndex] + [(elem.getPosition(),computeDistance(self.position,elem.position),elem.getTeam())]
-
-
+            # nearby elements are "reachable" , just them.
+            elemDistance = computeDistance(self.position,elem.position)
+            currentNeighbour = compass[keyIndex]
+            if currentNeighbour != []:
+                currentDistance = currentNeighbour[2]
+                if elemDistance < currentDistance:
+                    compass[keyIndex] = (elem.__str__(),elem.getPosition(),elemDistance)
+            else:
+                compass[keyIndex] = (elem.__str__(),elem.getPosition(),elemDistance)
         return compass
 
     def makeMove(self,futurePosition):
