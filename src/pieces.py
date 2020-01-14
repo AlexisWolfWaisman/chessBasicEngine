@@ -50,12 +50,16 @@ class piece(object):
 # ------------------- End ----------------------------------------------------
 
     def reacheable_pieces(self,enviroment=[]):
-        #TODO: it must compare distance between allies and enemies ; the longest one is unreacheable (in same angle)
-
         compass = dict(zip(range(0,360,45),[[]]*8))
         for elem in enviroment:
             keyIndex = angleBetweenPoints(self.position,elem.position)
-            compass[keyIndex] = (elem.getPosition(),computeDistance(self.position,elem.position),elem.getTeam())
+            # # nearby elements are "reachable" , just them.
+            # currentDistance = computeDistance(self.position,elem.position)
+            # if compass[keyIndex] != []:
+
+            compass[keyIndex] = compass[keyIndex] + [(elem.getPosition(),computeDistance(self.position,elem.position),elem.getTeam())]
+
+
         return compass
 
     def makeMove(self,futurePosition):

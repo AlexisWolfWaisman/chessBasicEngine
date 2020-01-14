@@ -8,8 +8,15 @@ if __name__ == '__main__':
     Piece_A.setCounterside("black")
 
     Piece_B = pawn("black")
-    Piece_B.setPosition("c3")
+    Piece_B.setPosition("d4")
     Piece_B.setCounterside("white")
 
-    print(Piece_A.reacheable_pieces([Piece_B]))
-    print(Piece_A)
+    Piece_C = pawn("white")
+    Piece_C.setPosition("c3")
+    Piece_A.setCounterside("black")
+
+
+    alcanzables = Piece_A.reacheable_pieces((Piece_B,Piece_C))
+    print(alcanzables)
+    print(alcanzables[0])
+
