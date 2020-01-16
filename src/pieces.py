@@ -17,10 +17,6 @@ class piece(object):
     def __str__(self):
         return "%s %s"%(self.team , type(self).__name__)
 
-
-
-
-
 # ------------------- Setters and getters ----------------------------------------------------
     def setTeam(self,p_team):
         self.team = p_team
@@ -57,11 +53,18 @@ class piece(object):
             elemDistance = computeDistance(self.position,elem.position)
             currentNeighbour = compass[keyIndex]
             if currentNeighbour != []:
-                currentDistance = currentNeighbour[2]
+                currentDistance = currentNeighbour[1]
                 if elemDistance < currentDistance:
-                    compass[keyIndex] = (elem.__str__(),elem.getPosition(),elemDistance)
+                    compass[keyIndex] = (elem,elemDistance)#elem.__str__(),elem.getPosition(),elemDistance)
             else:
-                compass[keyIndex] = (elem.__str__(),elem.getPosition(),elemDistance)
+                compass[keyIndex] =  (elem,elemDistance) #(elem.__str__(),elem.getPosition(),elemDistance)
+
+        for k,v in compass.items():
+            if len(v) > 0:
+                compass[k] = v[0]
+            else:
+                compass[k] = None
+
         return compass
 
     def makeMove(self,futurePosition):
@@ -77,6 +80,7 @@ class queen(piece):
     def __init__(self,p_team):
         super().__init__(p_team)
         self.movement = queen_movement
+
 
 class knight(piece):
     def __init__(self,p_team):

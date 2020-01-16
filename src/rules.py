@@ -1,10 +1,10 @@
 from scipy.spatial.distance import euclidean as computeDistance
 #TODO: directAmenace
-def directAmenace(team1,team2):
-    # team1 and team2 are lists
-    for x in team1:
-        for y in team2:
-            pass
+def directAmenace(attacker,target):
+    # attacker and target are objects
+    for key,values in attacker.reacheable_pieces([target]).items():
+        print("%s   %s"%(key,values))
+    return bool([])
 
 #TODO: Check
 def check(king,alliesPresence = [], opossitePrescence = [] ):
