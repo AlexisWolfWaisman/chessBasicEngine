@@ -69,7 +69,8 @@ class piece(object):
                 compass[k] = None
 
         return compass
-#TODO: Makemoves depends on another pieces; is not an object propetie
+
+
     # def makeMove(self,futurePosition):
     #     # pos = decodedPosition(futurePosition)
     #     # posibMoves = [x for x in self.movement(self.position) ]
@@ -105,8 +106,6 @@ class king(piece):
     def __init__(self, p_team):
         super().__init__(p_team)
         self.movement = king_movement
-
-
 
 
 class pawn(piece):

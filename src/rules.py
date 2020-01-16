@@ -8,6 +8,23 @@ def directAmenace(attacker,target,enviroment=[]):
             return True
     return False
 
+#TODO: Makemoves depends on another pieces; is not an object propety
+def makeMove(piece,futurePostion,enviroment = []):
+    # mainly pieces
+    KT1 = [x for x in enviroment if x.getSameSide() == piece.getSameSide() and type(x).__name__() == "king"]
+    # General ; Without much more logic
+    if futurePostion in piece.currentMovement() and enviroment == []:
+        piece.setPosition(futurePostion)
+
+    # normal ; with chess formal rules
+    # you can leave king under amenace
+    rule1 = [x for x in enviroment if x.directAmenace()  ]
+
+
+
+
+
+
 #TODO: Check
 def check(king,alliesPresence = [], opossitePrescence = [] ):
     pass
