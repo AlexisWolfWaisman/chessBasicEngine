@@ -17,6 +17,7 @@ if __name__ == '__main__':
     Piece_C.setPosition("c3")
     Piece_A.setCounterside("black")
 
+    
     print(directAmenace(Piece_A,Piece_B))
 
     # alcanzables = Piece_A.reacheable_pieces((Piece_B,Piece_C))

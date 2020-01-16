@@ -69,15 +69,16 @@ class piece(object):
                 compass[k] = None
 
         return compass
-
-    def makeMove(self,futurePosition):
-        pos = decodedPosition(futurePosition)
-        posibMoves = [x for x in self.movement(self.position) ]
-        if  pos in posibMoves:
-            self.setPosition(futurePosition)
-        else:
-            answer = 1
-            raise NameError(sCodes[answer])
+#TODO: Makemoves depends on another pieces; is not an object propetie
+    # def makeMove(self,futurePosition):
+    #     # pos = decodedPosition(futurePosition)
+    #     # posibMoves = [x for x in self.movement(self.position) ]
+    #     # if  pos in posibMoves:
+    #     if futurePosition in self.currentMovement():
+    #         self.setPosition(futurePosition)
+    #     else:
+    #         answer = 1
+    #         raise NameError(sCodes[answer])
 
 class queen(piece):
     def __init__(self,p_team):
@@ -120,17 +121,17 @@ class pawn(piece):
         if p_team == "black":
             self.movement = negative_pawn_movement
 
-    def makeMove(self,futurePosition, opossitePrescence = [] ):
-        pos = decodedPosition(futurePosition)
-        posibMoves = [ x for x in self.movement(self.position) if x[0] == self.position[0] ]
-        if opossitePrescence != []:
-            prescence = [decodedPosition(x) for x in opossitePrescence]
-            posibMoves = list(set(posibMoves).union(set(prescence)))
-        if pos in posibMoves  :
-            self.setPosition(futurePosition)
-        else:
-            answer = 1
-            raise NameError(sCodes[answer])
+    # def makeMove(self,futurePosition, opossitePrescence = [] ):
+    #     pos = decodedPosition(futurePosition)
+    #     posibMoves = [ x for x in self.movement(self.position) if x[0] == self.position[0] ]
+    #     if opossitePrescence != []:
+    #         prescence = [decodedPosition(x) for x in opossitePrescence]
+    #         posibMoves = list(set(posibMoves).union(set(prescence)))
+    #     if pos in posibMoves  :
+    #         self.setPosition(futurePosition)
+    #     else:
+    #         answer = 1
+    #         raise NameError(sCodes[answer])
 
 
 

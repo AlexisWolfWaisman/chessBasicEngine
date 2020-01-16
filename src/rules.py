@@ -1,6 +1,5 @@
 from scipy.spatial.distance import euclidean as computeDistance
 from src.generalMovements import encodePosition,decodedPosition
-#TODO: directAmenace
 def directAmenace(attacker,target,enviroment=[]):
     # attacker and target are objects
     reachP = attacker.reacheable_pieces([target]) if enviroment == [] else enviroment
