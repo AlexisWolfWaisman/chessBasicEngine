@@ -45,6 +45,9 @@ class piece(object):
 
 # ------------------- End ----------------------------------------------------
 
+    def currentMovement(self):
+        return[ encodePosition(x) for x in  self.movement(self.position)]
+
     def reacheable_pieces(self,enviroment=[]):
         compass = dict(zip(range(0,360,45),[[]]*8))
         for elem in enviroment:

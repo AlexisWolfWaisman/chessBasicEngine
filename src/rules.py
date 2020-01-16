@@ -1,10 +1,13 @@
 from scipy.spatial.distance import euclidean as computeDistance
+from src.generalMovements import encodePosition,decodedPosition
 #TODO: directAmenace
-def directAmenace(attacker,target):
+def directAmenace(attacker,target,enviroment=[]):
     # attacker and target are objects
-    for key,values in attacker.reacheable_pieces([target]).items():
-        print("%s   %s"%(key,values))
-    return bool([])
+    reachP = attacker.reacheable_pieces([target]) if enviroment == [] else enviroment
+    for key,value in reachP.items():
+        if value == target and target.getPosition() in attacker.currentMovement():
+            return True
+    return False
 
 #TODO: Check
 def check(king,alliesPresence = [], opossitePrescence = [] ):
