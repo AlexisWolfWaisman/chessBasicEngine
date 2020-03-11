@@ -9,11 +9,12 @@ class piece(object):
     position = None
     movement = None
     counterside = []
-    sameSide = []
+
 
     def __init__(self,p_team):
         self.setTeam(p_team)
         self.setSameSide(p_team)
+
 
 
 
@@ -41,15 +42,8 @@ class piece(object):
     def getCounterside(self):
         return self.counterside
 
-    def setSameSide(self,p_sameSide):
-        self.sameSide = p_sameSide
-    def getSameSide(self):
-        return self.sameSide
 
-    def setOppositeSide(self,p_sameSide):
-        self.sameSide = p_sameSide
-    def getOpossiteSide(self):
-        return self.sameSide
+
 
 # ------------------- End ------------------------------------------------------------------
 
@@ -97,13 +91,6 @@ class piece(object):
                 interceptables.append(elem)
         return interceptables
 
-    # def distanceTo(self,target):
-    #     """
-    #     Compute the distance to target
-    #     :param target: piece
-    #     :return: distance (integer)
-    #     """
-    #
 # ------------------- End ------------------------------------------------------------------
 
 

@@ -23,10 +23,10 @@ def movementRules(p_piece,p_enviroment,p_futurePosition=None):
     # There is an enemy interception?
     flag3 = False
     for x in p_piece.interceptablePieces(envir):
-        if x[1].getSameSide() != currPiece.getSameSide() and angle_to_point == x[0]:
+        if x[1].getOpositeSide() == currPiece.getSameSide() and angle_to_point == x[0]:
             dist_to_intercepted = computeDistance(decodedPosition(p_piece.getPosition()),
                                                   decodedPosition(x[1].getPosition()))
-            flag2 = dist_to_intercepted < dist_to_point
+            flag3 = dist_to_intercepted < dist_to_point
             if flag3 == True: break
     return ["llega?:%s"%flag1,"toca a algun aliado?:%s"%flag2]
 
