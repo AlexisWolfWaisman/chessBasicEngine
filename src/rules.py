@@ -3,35 +3,11 @@ from src.generalMovements import encodePosition,decodedPosition
 from src.pieces import angleBetweenPoints
 from math import  floor
 
-def movementRules(p_piece,p_enviroment,p_futurePosition=None):
-    futPos = p_futurePosition
-    envir = p_enviroment[:]
-    currPiece = p_piece
-    pair_of_pos =  decodedPosition(p_piece.getPosition()) , decodedPosition(futPos)
-    angle_to_point = angleBetweenPoints(*pair_of_pos)
-    dist_to_point = computeDistance(*pair_of_pos)
-    # IF IS ALONE ...can move?
-    flag1 = futPos in currPiece.currentMovement()
-    # There is an allie interception?
-    flag2=False
-    for x in p_piece.interceptablePieces(envir):
-        if x[1].getTeam() == currPiece.getTeam() and angle_to_point == x[0] :
-            dist_to_intercepted = computeDistance(decodedPosition(p_piece.getPosition()),decodedPosition(x[1].getPosition()))
-            flag2 = dist_to_intercepted < dist_to_point
-            if flag2 == True: break
 
-    # There is an enemy interception?
-    flag3 = False
-    for x in p_piece.interceptablePieces(envir):
-        if x[1].getTeam() != currPiece.getTeam() and angle_to_point == x[0]:
-            dist_to_intercepted = computeDistance(decodedPosition(p_piece.getPosition()),
-                                                  decodedPosition(x[1].getPosition()))
-            flag3 = dist_to_intercepted < dist_to_point
-            if flag3 == True: break
-    return ["llega?:%s"%flag1,"toca a algun aliado?:%s"%flag2]
 
 #TODO: Check
 def check(king,alliesPresence = [], opossitePrescence = [] ):
+
     pass
 
 
@@ -81,5 +57,31 @@ def repetition():
  A type of draw where the same position is reached three times with the same player to move. Does not require the same moves and can occur at any point in the game.
 """
 
-if __name__ == '__main__':
-    print(castling("K","W"))
+def movementRules(p_piece,p_enviroment,p_futurePosition=None):
+    futPos = p_futurePosition
+    envir = p_enviroment[:]
+    currPiece = p_piece
+    pair_of_pos =  decodedPosition(p_piece.getPosition()) , decodedPosition(futPos)
+    angle_to_point = angleBetweenPoints(*pair_of_pos)
+    dist_to_point = computeDistance(*pair_of_pos)
+    # IF IS ALONE ...can move?
+    flag1 = futPos in currPiece.currentMovement()
+    # There is an allie interception?
+    flag2=False
+    for x in p_piece.interceptablePieces(envir):
+        if x[1].getTeam() == currPiece.getTeam() and angle_to_point == x[0] :
+            dist_to_intercepted = computeDistance(decodedPosition(p_piece.getPosition()),decodedPosition(x[1].getPosition()))
+            flag2 = dist_to_intercepted < dist_to_point
+            if flag2 == True: break
+
+    # There is an enemy interception?
+    flag3 = False
+    for x in p_piece.interceptablePieces(envir):
+        if x[1].getTeam() != currPiece.getTeam() and angle_to_point == x[0]:
+            dist_to_intercepted = computeDistance(decodedPosition(p_piece.getPosition()),
+                                                  decodedPosition(x[1].getPosition()))
+            flag3 = dist_to_intercepted < dist_to_point
+            if flag3 == True: break
+
+
+    return ["llega?:%s"%flag1,"toca a algun aliado?:%s"%flag2,"toca a algun enemigo?:%s"%flag3]

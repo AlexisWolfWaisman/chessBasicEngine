@@ -27,5 +27,5 @@ class standard_game(game):
 
 
 def makeMove(piece,futurePostion,enviroment = []):
-    if  chess_movementRules(piece,enviroment) == True:
+    if  movementRules(piece,enviroment) == True:
         piece.setPosition(futurePostion)

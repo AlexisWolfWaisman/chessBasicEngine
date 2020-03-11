@@ -8,7 +8,6 @@ class piece(object):
     team = None
     position = None
     movement = None
-    counterside = []
 
 
     def __init__(self,p_team):
@@ -32,14 +31,6 @@ class piece(object):
         self.movement = p_movement
     def getMovement(self):
         return self.movement
-
-    def setCounterside(self,p_oposition):
-            self.counterside.append(p_oposition)
-    def getCounterside(self):
-        return self.counterside
-
-
-
 
 # ------------------- End ------------------------------------------------------------------
 
@@ -132,8 +123,3 @@ class pawn(piece):
             self.movement = negative_pawn_movement
 
 # ------------------- End ------------------------------------------------------------------
-
-
-
-
-

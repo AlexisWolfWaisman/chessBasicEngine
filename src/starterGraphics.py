@@ -22,11 +22,3 @@ def setPiecePos(piece,positions):
 
 def basicBoard(table):
     print(tabulate(table,headers=X_axis,tablefmt="fancy_grid"))
-
-
-prueba = pawn("white")
-prueba.setPosition("b2")
-basicBoard(mark())
-
-
-
