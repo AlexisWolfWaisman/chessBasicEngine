@@ -6,9 +6,11 @@ from math import  floor
 
 
 #TODO: Check
-def check(king,alliesPresence = [], opossitePrescence = [] ):
+def check(p_attacker,p_enviroment):
+    for x in p_attacker.interceptablePieces(p_enviroment):
+        pass
 
-    pass
+
 
 
 #TODO: castling
