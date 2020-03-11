@@ -1,13 +1,7 @@
 from scipy.spatial.distance import euclidean as computeDistance
 from src.generalMovements import encodePosition,decodedPosition
 
-def interceptOnPlane(attacker,target,enviroment=[]):
-    # attacker and target are objects
-    reachP = attacker.neighbourhood_pieces_around_in_plane([target]) if enviroment == [] else enviroment
-    for key,value in reachP.items():
-        if value == target and target.getPosition() in attacker.currentMovement():
-            return True
-    return False
+
 
 #TODO: Makemoves depends on another pieces; is not an object propety
 def makeMove(piece,futurePostion,enviroment = []):

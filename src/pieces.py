@@ -43,17 +43,24 @@ class piece(object):
     def getSameSide(self):
         return self.sameSide
 
-# ------------------- End ----------------------------------------------------
+# ------------------- End ------------------------------------------------------------------
 
+
+#----------------- General features about all pieces ----------------------------------------
     def currentMovement(self):
         return[ encodePosition(x) for x in  self.getMovement()(self.position)]
 
-    def neighbourhood_pieces_around_in_plane(self,enviroment=[]):
+    def neighbourhood_pieces_around_in_plane(self,p_enviroment=[]):
         """
-
-        :param enviroment: list of pieces
+        This searchs in all the plane pieces to catch by the current. Without knowing the current movement.
+        :param p_enviroment: list of pieces
         :return: dict
         """
+        enviroment = p_enviroment[:]
+        # self is filtered
+        #print([str(x) for x in enviroment])
+        enviroment.pop(enviroment.index(self))
+        #print([str(x) for x in enviroment])
         compass = dict(zip(range(0,360,45),[[]]*8))
         for elem in enviroment:
             keyIndex = angleBetweenPoints(self.position,elem.position)
@@ -75,6 +82,17 @@ class piece(object):
 
         return compass
 
+    def interceptablePieces(self,enviroment=[]):
+        interceptables = []
+        for elem in self.neighbourhood_pieces_around_in_plane(enviroment).items():
+            if elem[1] != None and elem[1].getPosition() in self.currentMovement():
+                interceptables.append(elem[1])
+        return interceptables
+# ------------------- End ------------------------------------------------------------------
+
+
+
+#---------------------- Pieces (Chess) -----------------------------------------------------
 class queen(piece):
     def __init__(self,p_team):
         super().__init__(p_team)
@@ -113,6 +131,8 @@ class pawn(piece):
             self.movement = positive_pawn_movement
         if p_team == "black":
             self.movement = negative_pawn_movement
+
+# ------------------- End ------------------------------------------------------------------
 
 
 

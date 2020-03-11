@@ -2,7 +2,7 @@ from src.pieces import *
 from src.generalMovements import queen_movement
 from src.generalMovements import decodedPosition
 from src.generalMovements import encodePosition
-from src.rules import interceptOnPlane
+
 if __name__ == '__main__':
 
     Piece_A = queen("white")
@@ -17,8 +17,10 @@ if __name__ == '__main__':
     Piece_C.setPosition("c3")
     Piece_A.setCounterside("black")
 
+    Envir = [Piece_A,Piece_B,Piece_C]
 
-    print(interceptOnPlane(Piece_A,Piece_B))
+
+    print(Piece_A.interceptablePieces(Envir))
 
 
 
