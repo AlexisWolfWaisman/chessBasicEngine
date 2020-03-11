@@ -1,3 +1,5 @@
+from .rules import chess_movementRules
+
 class game(object):
     def __init__(self):
         teams = None
@@ -21,3 +23,8 @@ class standard_game(game):
   'B': u'♗', 'Q': u'♕', 'K': u'♔', 'P': u'♙',
   None: ' '
 }
+
+
+def makeMove(piece,futurePostion,enviroment = []):
+    if  chess_movementRules(piece,enviroment) == True:
+        piece.setPosition(futurePostion)

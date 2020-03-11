@@ -1,15 +1,10 @@
 from scipy.spatial.distance import euclidean as computeDistance
 from src.generalMovements import encodePosition,decodedPosition
 
+def chess_movementRules():
+    pass
 
 
-#TODO: Makemoves depends on another pieces; is not an object propety
-def makeMove(piece,futurePostion,enviroment = []):
-    # mainly pieces
-    KT1 = [x for x in enviroment if x.getSameSide() == piece.getSameSide() and type(x).__name__() == "king"]
-    # General ; Without much more logic
-    if futurePostion in piece.currentMovement() and enviroment == []:
-        piece.setPosition(futurePostion)
 
 
 
