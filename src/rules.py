@@ -1,9 +1,9 @@
 from scipy.spatial.distance import euclidean as computeDistance
 from src.generalMovements import encodePosition,decodedPosition
 
-def directAmenace(attacker,target,enviroment=[]):
+def interceptOnPlane(attacker,target,enviroment=[]):
     # attacker and target are objects
-    reachP = attacker.reacheable_pieces([target]) if enviroment == [] else enviroment
+    reachP = attacker.neighbourhood_pieces_around_in_plane([target]) if enviroment == [] else enviroment
     for key,value in reachP.items():
         if value == target and target.getPosition() in attacker.currentMovement():
             return True
@@ -17,9 +17,7 @@ def makeMove(piece,futurePostion,enviroment = []):
     if futurePostion in piece.currentMovement() and enviroment == []:
         piece.setPosition(futurePostion)
 
-    # normal ; with chess formal rules
-    # you can leave king under amenace
-    rule1 = [x for x in enviroment if x.directAmenace()  ]
+
 
 
 

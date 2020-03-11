@@ -2,7 +2,7 @@ from src.pieces import *
 from src.generalMovements import queen_movement
 from src.generalMovements import decodedPosition
 from src.generalMovements import encodePosition
-from src.rules import directAmenace
+from src.rules import interceptOnPlane
 if __name__ == '__main__':
 
     Piece_A = queen("white")
@@ -18,7 +18,7 @@ if __name__ == '__main__':
     Piece_A.setCounterside("black")
 
 
-    print(Piece_A.currentMovement())
-    print(directAmenace(Piece_A,Piece_B))
+    print(interceptOnPlane(Piece_A,Piece_B))
+
 
 

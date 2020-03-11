@@ -48,7 +48,12 @@ class piece(object):
     def currentMovement(self):
         return[ encodePosition(x) for x in  self.getMovement()(self.position)]
 
-    def reacheable_pieces(self,enviroment=[]):
+    def neighbourhood_pieces_around_in_plane(self,enviroment=[]):
+        """
+
+        :param enviroment: list of pieces
+        :return: dict
+        """
         compass = dict(zip(range(0,360,45),[[]]*8))
         for elem in enviroment:
             keyIndex = angleBetweenPoints(self.position,elem.position)
