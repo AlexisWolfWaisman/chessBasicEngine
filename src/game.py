@@ -1,10 +1,10 @@
-from .rules import chess_movementRules
+from .rules import movementRules
 
 class game(object):
     def __init__(self):
         teams = None
         boards = None
-        pieces = {}
+        pieces = []
         matchResults ={
             "win":None,# id or object
             "lose":None, # id or object
@@ -13,6 +13,7 @@ class game(object):
             }
         players = None
         rules = None
+        factions = {}
 
 class standard_game(game):
     def __init__(self):

@@ -13,10 +13,6 @@ class piece(object):
 
     def __init__(self,p_team):
         self.setTeam(p_team)
-        self.setSameSide(p_team)
-
-
-
 
     def __str__(self):
         return "%s %s"%(self.team , type(self).__name__)

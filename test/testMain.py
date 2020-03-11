@@ -1,3 +1,4 @@
+from src.game import *
 from src.rules import movementRules
 from src.pieces import *
 from src.generalMovements import queen_movement
@@ -19,10 +20,12 @@ if __name__ == '__main__':
     Piece_C.setPosition("b4")
     Piece_A.setCounterside("black")
 
-    Envir = [Piece_A,Piece_B,Piece_C]
+    myGame = game()
+    myGame.pieces = [Piece_A,Piece_B,Piece_C]
+
 
     print("probando movimiento de las piezas")
-    print(movementRules(p_piece=Piece_A,p_enviroment=Envir,p_futurePosition="b5"))
+    print(movementRules(p_piece=Piece_A,p_enviroment=myGame.pieces,p_futurePosition="b5"))
 
 
 
