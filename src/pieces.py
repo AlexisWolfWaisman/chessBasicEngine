@@ -13,6 +13,9 @@ class piece(object):
 
     def __init__(self,p_team):
         self.setTeam(p_team)
+        self.setSameSide(p_team)
+
+
 
     def __str__(self):
         return "%s %s"%(self.team , type(self).__name__)
@@ -41,6 +44,11 @@ class piece(object):
     def setSameSide(self,p_sameSide):
         self.sameSide = p_sameSide
     def getSameSide(self):
+        return self.sameSide
+
+    def setOppositeSide(self,p_sameSide):
+        self.sameSide = p_sameSide
+    def getOpossiteSide(self):
         return self.sameSide
 
 # ------------------- End ------------------------------------------------------------------
@@ -86,8 +94,16 @@ class piece(object):
         interceptables = []
         for elem in self.neighbourhood_pieces_around_in_plane(enviroment).items():
             if elem[1] != None and elem[1].getPosition() in self.currentMovement():
-                interceptables.append(elem[1])
+                interceptables.append(elem)
         return interceptables
+
+    # def distanceTo(self,target):
+    #     """
+    #     Compute the distance to target
+    #     :param target: piece
+    #     :return: distance (integer)
+    #     """
+    #
 # ------------------- End ------------------------------------------------------------------
 
 
