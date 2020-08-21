@@ -86,28 +86,26 @@ class piece(object):
 class queen(piece):
     def __init__(self,p_team):
         super().__init__(p_team)
-        self.movement = queen_movement
-
-
+        self.movement = asterisk_movement
 class knight(piece):
     def __init__(self,p_team):
         super().__init__(p_team)
-        self.movement = knight_movement
+        self.movement = counterAsterisk_movement
 
 class rook(piece):
     def __init__(self, p_team):
         super().__init__(p_team)
-        self.movement = rook_movement
+        self.movement = cross_movement
 
 class bishop(piece):
     def __init__(self, p_team):
         super().__init__(p_team)
-        self.movement = bishop_movement
+        self.movement = X_movement
 
 class king(piece):
     def __init__(self, p_team):
         super().__init__(p_team)
-        self.movement = king_movement
+        self.movement = oneStepAsterisk_movement
 
 
 class pawn(piece):
@@ -118,8 +116,8 @@ class pawn(piece):
 
     def standardStart(self,p_team):
         if p_team == "white":
-            self.movement = positive_pawn_movement
+            self.movement = positive_oneStepTriangle_movement
         if p_team == "black":
-            self.movement = negative_pawn_movement
+            self.movement = negative_oneStepTriangle_movement
 
 # ------------------- End ------------------------------------------------------------------
