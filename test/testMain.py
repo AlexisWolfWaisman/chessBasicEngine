@@ -36,9 +36,7 @@ def graphics1():
 def graphic2():
     Piece_A = queen("white")
     Piece_A.setPosition("b2")
-    myGame = game()
-    myGame.pieces = [Piece_A]
-    print(Piece_A.getMovement())
+    print(set_GraphicallPiece_Pos(Piece_A,Piece_A.getMovement()))
 
 
 

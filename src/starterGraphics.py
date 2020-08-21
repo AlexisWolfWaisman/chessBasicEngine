@@ -13,17 +13,21 @@ UNICODE_PIECES = {
 }
 
 # this goes first, because after locate all posible movements (including current position) we set the piece (graph)
-def mark(positions):
+def mark(positions,withColumns=False):
     table = []
     for col in range(1,edgeLong+1):
-        row = [col] + ["█"   if (x,col) in positions else " " for x in range(1,edgeLong+1) ]
+        if withColumns:
+            row = [col] + ["█"   if (x,col) in positions else " " for x in range(1,edgeLong+1) ]
+        else:
+            row = ["█" if (x, col) in positions else " " for x in range(1, edgeLong + 1)]
         table.append(row)
     return table
 
 # the positions will be given in game;  for increasing independency
 def set_GraphicallPiece_Pos(piece,positions):
     table = mark(positions)
-    return table
+    table[1][1] = "X"
+    return tabulate(table,tablefmt="fancy_grid")
 
 
 
