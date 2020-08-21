@@ -28,8 +28,6 @@ square_movement = lambda initialPos,distance: [ x for x in cartessianProd(range(
 spider_movement = lambda initialPos,distance: [x for x in set(square_movement(initialPos,distance)).intersection(set(distanced_asterisk_movement(initialPos,distance)))]
 spot_movement = lambda initialPos,distance:  set(spider_movement(initialPos,distance)) - set(map(tuple,NParray(initialPos) + list(cartessianProd((2,-2),repeat=2))))
 triangle_movement = lambda initialPos,distance,direction: [x for x in spot_movement(initialPos,distance) if sign(x[1]-initialPos[1])==sign(direction) ]
-decodedPosition = lambda  position : (X_axis.index(position[0])+1 , int(position[1]) )
-encodePosition = lambda  position : "%s%s"%(X_axis[position[0]-1] , int(position[1]) )
 checkBoardConsistent = lambda position: [x for x in board if x != position]
 # in all cases we keep in mind that the inital position is not included inside movement posibilities
 cross_movement = lambda initialPos : list(set(checkBoardConsistent(initialPos)).intersection(set([x for x in board if x[0]==initialPos[0] or x[1] == initialPos[1] ] )))
