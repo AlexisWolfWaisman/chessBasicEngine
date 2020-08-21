@@ -21,6 +21,9 @@ class piece(object):
     def __str__(self):
         return "%s %s"%(self.team , type(self).__name__)
 
+    def acronim(self):
+        return "%s%s" % (self.team[0], type(self).__name__[0])
+
 # ------------------- Setters and getters ----------------------------------------------------
     def setTeam(self,p_team):
         if p_team != None:
@@ -100,8 +103,6 @@ class queen(piece):
     def __init__(self,p_team):
         super().__init__(p_team,p_movementFunction=asterisk_movement)
         # super().setMovementFunction(None)
-
-
 
     def changePosition(self,p_position):
         super.setPosition(p_position)
