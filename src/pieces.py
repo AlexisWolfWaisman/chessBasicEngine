@@ -10,37 +10,47 @@ angleBetweenPoints = lambda origin,destiny: int(atan2(destiny[1] - origin[1], de
 class piece(object):
     team = None
     position = None
-    movement = None
+    movementFunction = None
 
 
-    def __init__(self,p_team):
+    def __init__(self,p_team=None,p_position=None,p_movementFunction=None):
         self.setTeam(p_team)
+        self.setPosition(p_position)
+        self.setMovementFunction(p_movementFunction)
 
     def __str__(self):
         return "%s %s"%(self.team , type(self).__name__)
 
 # ------------------- Setters and getters ----------------------------------------------------
     def setTeam(self,p_team):
-        self.team = p_team
+        if p_team != None:
+            self.team = p_team
     def getTeam(self):
         return self.team
 
     def setPosition(self,p_position):
-        self.position = decodedPosition(p_position)
+        if p_position != None:
+            self.position = decodedPosition(p_position)
     def getPosition(self):
         return encodePosition(self.position)
 
-    def setMovement(self,p_movement):
-        self.movement = p_movement
+    def setMovementFunction(self,p_movementFunction):
+        if p_movementFunction != None: #TODO it must be a lambda function
+            self.movementFunction = p_movementFunction
+
+    def getMovementFunction(self):
+        return self.movementFunction
+
     def getMovement(self):
-        return self.movement
+        return self.getMovementFunction()(self.position)
+
 
 # ------------------- End ------------------------------------------------------------------
 
 
 #----------------- General features about all pieces ----------------------------------------
-    def currentMovement(self):
-        return[ encodePosition(x) for x in  self.getMovement()(self.position)]
+    def currentMovement(self,position):
+        return[ encodePosition(x) for x in  self.getMovement()]
 
     def neighbourhood_pieces_around_in_plane(self,p_enviroment=[]):
         """
@@ -88,8 +98,18 @@ class piece(object):
 #---------------------- Pieces (Chess) -----------------------------------------------------
 class queen(piece):
     def __init__(self,p_team):
-        super().__init__(p_team)
-        self.movement = asterisk_movement
+        super().__init__(p_team,p_movementFunction=asterisk_movement)
+        # super().setMovementFunction(None)
+
+
+
+    def changePosition(self,p_position):
+        super.setPosition(p_position)
+
+
+
+
+
 class knight(piece):
     def __init__(self,p_team):
         super().__init__(p_team)

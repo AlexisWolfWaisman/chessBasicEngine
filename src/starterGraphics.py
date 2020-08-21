@@ -20,9 +20,11 @@ def mark(positions):
         table.append(row)
     return table
 
-
-def setPiecePos(piece,positions):
+# the positions will be given in game;  for increasing independency
+def set_GraphicallPiece_Pos(piece,positions):
     table = mark(positions)
+    return table
+
 
 
 def basicBoard():

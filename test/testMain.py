@@ -3,7 +3,7 @@ from src.rules import movementRules
 from src.rules import check
 from src.pieces import queen,king,pawn
 # graphics
-from src.starterGraphics import basicBoard
+from src.starterGraphics import basicBoard,set_GraphicallPiece_Pos
 from src.board import board
 
 
@@ -30,12 +30,20 @@ def test1():
     print("probando la amenaza al rey")
     print(check(myGame.pieces[0],myGame.pieces))
 
-def Graphics1():
+def graphics1():
     print(basicBoard())
+
+def graphic2():
+    Piece_A = queen("white")
+    Piece_A.setPosition("b2")
+    myGame = game()
+    myGame.pieces = [Piece_A]
+    print(Piece_A.getMovement())
+
 
 
 if __name__ == '__main__':
-    Graphics1()
+    graphic2()
 
 
 
