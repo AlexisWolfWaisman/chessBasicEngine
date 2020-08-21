@@ -1,5 +1,9 @@
+# Dependencies
+from .board import *
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 from tabulate import  tabulate
-from src.pieces import *
+
 
 UNICODE_PIECES = {
   'r': u'♜', 'n': u'♞', 'b': u'♝', 'q': u'♛',
@@ -8,10 +12,7 @@ UNICODE_PIECES = {
   None: ' '
 }
 
-def basicBoard(table):
-    return (tabulate(table,headers=X_axis,tablefmt="fancy_grid"))
-
-
+# this goes first, because after locate all posible movements (including current position) we set the piece (graph)
 def mark(positions):
     table = []
     for col in range(1,edgeLong+1):
@@ -19,5 +20,11 @@ def mark(positions):
         table.append(row)
     return table
 
+
 def setPiecePos(piece,positions):
-    pass
+    table = mark(positions)
+
+
+def basicBoard():
+    table_aux = [[element] + board_row for element in Y_axis]
+    return (tabulate(table_aux,headers=X_axis,tablefmt="fancy_grid"))

@@ -6,8 +6,7 @@ global X_axis
 global Y_axis
 edgeLong = 8
 board = list(prodCartesiano(range(1,edgeLong+1),range(1,edgeLong+1)))
-
-row = [" " for x in range(1,edgeLong+1) ]
+board_row = [" " for x in range(1,edgeLong+1) ]
 # this lamb is just to replace nounce values in a list. (auxiliary)
 # replaceAll = lambda list,value: [value for x in list]
 # we create a matrix with the same measures

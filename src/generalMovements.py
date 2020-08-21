@@ -1,8 +1,13 @@
+# Dependencies
+from .board import *
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# math functions
 from numpy import array as NParray, sign
 from scipy.spatial.distance import euclidean as computeDistance
 from itertools import product as cartessianProd
 from math import fabs, floor
-from .board import *
+
 
 def validatePos(position):
   if isinstance(position,str):

@@ -1,7 +1,7 @@
 from scipy.spatial.distance import euclidean as computeDistance
 from src.generalMovements import encodePosition,decodedPosition
 from src.pieces import angleBetweenPoints
-from math import  floor
+
 
 
 

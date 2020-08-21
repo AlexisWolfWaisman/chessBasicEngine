@@ -1,9 +1,12 @@
-from src.statusCodes import codes as sCodes
-from src.generalMovements import *
-from numpy import angle
+# Dependencies
+from src.generalMovements import cross_movement,X_movement,asterisk_movement,counterAsterisk_movement,\
+oneStepAsterisk_movement,positive_oneStepTriangle_movement,negative_oneStepTriangle_movement,\
+encodePosition,decodedPosition,computeDistance
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# math functions
 from math import atan2,pi
-# angleBetweenPoints = lambda origin,destiny: angle(complex(destiny[0]-origin[0],destiny[1]-origin[1]),deg=True)
 angleBetweenPoints = lambda origin,destiny: int(atan2(destiny[1] - origin[1], destiny[0] - origin[0]) * 180 / pi)
+
 class piece(object):
     team = None
     position = None
