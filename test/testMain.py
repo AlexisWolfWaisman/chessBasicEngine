@@ -3,8 +3,7 @@ from src.rules import movementRules
 from src.rules import check
 from src.pieces import queen,king,pawn
 # graphics
-from src.starterGraphics import set_GraphicallRange
-from src.board import board
+from src.starterGraphics import *
 
 
 def test1():
@@ -32,9 +31,23 @@ def test1():
 
 
 def graphic1():
-    Piece_A = queen("black")
+
+    Piece_A = queen("balck")
     Piece_A.setPosition("b2")
-    print(set_GraphicallRange(Piece_A,Piece_A.getMovement()))
+
+    Piece_B = king("black")
+    Piece_B.setPosition("e5")
+
+    Piece_C = king("white")
+    Piece_C.setPosition("b4")
+
+    Piece_D = pawn("black")
+    Piece_D.setPosition("c3")
+
+    myGame = game()
+    myGame.pieces = [Piece_A, Piece_B, Piece_C, Piece_D]
+
+    return Graphicall_environment(myGame.pieces)["draw"]
 
 if __name__ == '__main__':
     graphic1()

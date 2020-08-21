@@ -35,15 +35,27 @@ def mark(positions,withColumns=False):
     return table
 
 # the positions will be given in game;  for increasing independency
-def set_GraphicallRange(piece,positions):
+def GraphicallRange(piece,positions):
     table = mark(positions,True)
     table[piece.position[0]-1][piece.position[1]] = UNICODE_PIECES[transformToUnicode(piece.acronim())]
     return tabulate(table,headers=X_axis,tablefmt="fancy_grid")
 
 
 def voidBoard():
-    table_aux = [[element] + board_row for element in Y_axis]
-    return (tabulate(table_aux, tablefmt="fancy_grid"))
+    table = [[element] + board_row for element in Y_axis]
+    return {"draw":tabulate(table,headers=X_axis ,tablefmt="fancy_grid"),"array":table}
     #return (tabulate(table_aux,headers=X_axis,tablefmt="fancy_grid"))
+
+def Graphicall_piece(piece):
+    table = voidBoard()["array"]
+    table[piece.position[0] - 1][piece.position[1]] = UNICODE_PIECES[transformToUnicode(piece.acronim())]
+    return {"draw":tabulate(table,headers=X_axis ,tablefmt="fancy_grid"),"array":table}
+
+def Graphicall_environment(enviroment):
+    table = voidBoard()["array"]
+    for piece in enviroment:
+        table[piece.position[0] - 1][piece.position[1]] = UNICODE_PIECES[transformToUnicode(piece.acronim())]
+    return {"draw": tabulate(table, headers=X_axis, tablefmt="fancy_grid"), "array": table}
+
 
 

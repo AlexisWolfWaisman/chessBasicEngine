@@ -104,8 +104,6 @@ class queen(piece):
         super().__init__(p_team,p_movementFunction=asterisk_movement)
         # super().setMovementFunction(None)
 
-    def changePosition(self,p_position):
-        super.setPosition(p_position)
 
 
 
@@ -113,23 +111,23 @@ class queen(piece):
 
 class knight(piece):
     def __init__(self,p_team):
-        super().__init__(p_team)
-        self.movement = counterAsterisk_movement
+        super().__init__(p_team,p_movementFunction=counterAsterisk_movement)
+
 
 class rook(piece):
     def __init__(self, p_team):
-        super().__init__(p_team)
-        self.movement = cross_movement
+        super().__init__(p_team,p_movementFunction=cross_movement)
+
 
 class bishop(piece):
     def __init__(self, p_team):
-        super().__init__(p_team)
-        self.movement = X_movement
+        super().__init__(p_team,p_movementFunction=X_movement)
+
 
 class king(piece):
     def __init__(self, p_team):
-        super().__init__(p_team)
-        self.movement = oneStepAsterisk_movement
+        super().__init__(p_team,p_movementFunction=oneStepAsterisk_movement)
+
 
 
 class pawn(piece):
