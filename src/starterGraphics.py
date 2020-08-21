@@ -36,12 +36,14 @@ def mark(positions,withColumns=False):
 
 # the positions will be given in game;  for increasing independency
 def set_GraphicallRange(piece,positions):
-    table = mark(positions)
-    table[piece.position[0]-1][piece.position[1]-1] = UNICODE_PIECES[transformToUnicode(piece.acronim())]
-    return tabulate(table,tablefmt="fancy_grid")
+    table = mark(positions,True)
+    table[piece.position[0]-1][piece.position[1]] = UNICODE_PIECES[transformToUnicode(piece.acronim())]
+    return tabulate(table,headers=X_axis,tablefmt="fancy_grid")
 
 
-
-def basicBoard():
+def voidBoard():
     table_aux = [[element] + board_row for element in Y_axis]
-    return (tabulate(table_aux,headers=X_axis,tablefmt="fancy_grid"))
+    return (tabulate(table_aux, tablefmt="fancy_grid"))
+    #return (tabulate(table_aux,headers=X_axis,tablefmt="fancy_grid"))
+
+
