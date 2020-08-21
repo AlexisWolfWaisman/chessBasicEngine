@@ -1,4 +1,5 @@
 from .rules import movementRules
+from .starterGraphics import UNICODE_PIECES
 
 class game(object):
     def __init__(self):
@@ -38,12 +39,7 @@ class game(object):
 class standard_game(game):
     def __init__(self):
         super.__init__()
-        pieces = {
-  'r': u'♜', 'n': u'♞', 'b': u'♝', 'q': u'♛',
-  'k': u'♚', 'p': u'♟', 'R': u'♖', 'N': u'♘',
-  'B': u'♗', 'Q': u'♕', 'K': u'♔', 'P': u'♙',
-  None: ' '
-}
+        pieces = UNICODE_PIECES
 
 
 def makeMove(piece,futurePostion,enviroment = []):

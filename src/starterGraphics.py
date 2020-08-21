@@ -1,6 +1,4 @@
-from src.generalMovements import *
 from tabulate import  tabulate
-from src.board import *
 from src.pieces import *
 
 UNICODE_PIECES = {
@@ -9,6 +7,10 @@ UNICODE_PIECES = {
   'B': u'♗', 'Q': u'♕', 'K': u'♔', 'P': u'♙',
   None: ' '
 }
+
+def basicBoard(table):
+    return (tabulate(table,headers=X_axis,tablefmt="fancy_grid"))
+
 
 def mark(positions):
     table = []
@@ -19,6 +21,3 @@ def mark(positions):
 
 def setPiecePos(piece,positions):
     pass
-
-def basicBoard(table):
-    print(tabulate(table,headers=X_axis,tablefmt="fancy_grid"))

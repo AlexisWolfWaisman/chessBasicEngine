@@ -2,6 +2,9 @@ from src.game import game
 from src.rules import movementRules
 from src.rules import check
 from src.pieces import queen,king,pawn
+# graphics
+from src.starterGraphics import basicBoard
+from src.board import matrixFormBoard
 
 
 def test1():
@@ -28,11 +31,11 @@ def test1():
     print(check(myGame.pieces[0],myGame.pieces))
 
 def Graphics1():
-    pass
+    print(basicBoard(matrixFormBoard))
 
 
 if __name__ == '__main__':
-    test1()
+    Graphics1()
 
 
 
