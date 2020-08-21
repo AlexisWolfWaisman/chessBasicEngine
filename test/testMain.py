@@ -4,7 +4,7 @@ from src.rules import check
 from src.pieces import queen,king,pawn
 # graphics
 from src.starterGraphics import basicBoard
-from src.board import matrixFormBoard
+from src.board import *
 
 
 def test1():
@@ -31,7 +31,10 @@ def test1():
     print(check(myGame.pieces[0],myGame.pieces))
 
 def Graphics1():
-    print(basicBoard(matrixFormBoard))
+    table_aux = (list(zip(Y_axis,matrixFormBoard)))
+    table_aux = [x for x in table_aux]
+    print(table_aux)
+    #print(basicBoard(table_aux))
 
 
 if __name__ == '__main__':
